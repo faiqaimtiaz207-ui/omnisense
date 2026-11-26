@@ -1,0 +1,12 @@
+streamlit
+torch
+torchvision
+transformers
+accelerate
+openai-whisper
+qwen-vl-utils
+opencv-python-headless
+rouge-score
+pandas
+decord
+av
