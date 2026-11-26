@@ -80,79 +80,87 @@ def fmt(t):
     return f"{int(t // 60):02d}:{t % 60:04.1f}"
 
 # ---------------------------------------------------------------- STYLE
+# Palette: #5D001E burgundy | #E3E2DF stone | #E3AFBC blush | #9A1750 plum | #EE4C7C rose
 CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
-:root{--bg:#0e0d0b;--panel:#171512;--paper:#f2ead8;--dim:#9b927f;--amber:#ff9f1c;--rec:#ff3b30;--line:#2a2722}
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Newsreader:ital,wght@0,400;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+:root{--bg:#E3E2DF;--panel:#EFEEEB;--ink:#5D001E;--plum:#9A1750;--rose:#EE4C7C;--blush:#E3AFBC;--line:#C9BFC2}
 header[data-testid="stHeader"],#MainMenu,footer{display:none!important}
-.stApp{background:radial-gradient(1100px 480px at 88% -8%,rgba(255,159,28,.13),transparent),
- repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),var(--bg);
- color:var(--paper);font-family:'IBM Plex Mono',monospace}
+.stApp{background:radial-gradient(circle,rgba(154,23,80,.10) 1px,transparent 1.4px) 0 0/16px 16px,var(--bg);
+ color:var(--ink);font-family:'IBM Plex Mono',monospace}
 .block-container{padding-top:1rem;max-width:1250px}
-.slate{font-family:'IBM Plex Mono',monospace;letter-spacing:.25em;font-size:12px;color:var(--amber);
- margin:6px 0 12px;display:flex;align-items:center;gap:10px}
-.slate::after{content:"";flex:1;height:1px;background:var(--line)}
-[data-testid="stFileUploader"] section{background:var(--panel);border:1.5px dashed #4a4437;border-radius:4px;
- padding:26px;transition:.25s}
-[data-testid="stFileUploader"] section:hover{border-color:var(--amber);background:#1d1a15;transform:translateY(-2px)}
-[data-testid="stFileUploader"] *{color:var(--paper)!important;font-family:'IBM Plex Mono',monospace!important}
-[data-testid="stFileUploader"] button{background:var(--amber)!important;color:#0e0d0b!important;border:0!important;
- border-radius:2px!important;font-weight:500!important}
-.stTextInput input{background:var(--panel)!important;color:var(--paper)!important;border:1.5px solid #3a352b!important;
+.stApp p,.stApp label,.stApp span,.stApp li{color:var(--ink)}
+.slate{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.2em;font-size:15px;color:var(--ink);
+ margin:6px 0 12px;display:flex;align-items:center;gap:10px;text-transform:uppercase}
+.slate::before{content:"";width:22px;height:8px;background:var(--rose)}
+.slate::after{content:"";flex:1;height:2px;background:var(--ink)}
+[data-testid="stFileUploader"] section{background:var(--panel);border:2px dashed var(--plum);border-radius:2px;padding:26px;transition:.25s}
+[data-testid="stFileUploader"] section:hover{border-color:var(--rose);background:#F6E6EB;transform:translateY(-2px)}
+[data-testid="stFileUploader"] *{color:var(--ink)!important;font-family:'IBM Plex Mono',monospace!important}
+[data-testid="stFileUploader"] button{background:var(--ink)!important;border:0!important;border-radius:2px!important}
+[data-testid="stFileUploader"] button *{color:var(--bg)!important}
+.stTextInput input{background:var(--panel)!important;color:var(--ink)!important;border:2px solid var(--ink)!important;
  border-radius:2px!important;font-family:'IBM Plex Mono',monospace!important;padding:14px!important}
-.stTextInput input:focus{border-color:var(--amber)!important;box-shadow:4px 4px 0 var(--amber)!important}
-.stButton>button{width:100%;background:var(--amber);color:#0e0d0b;border:2px solid #0e0d0b;border-radius:2px;
- font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;letter-spacing:.08em;padding:14px;
- box-shadow:6px 6px 0 var(--paper);transition:.15s}
-.stButton>button:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--paper);background:#ffb347;color:#0e0d0b;border-color:#0e0d0b}
-.stButton>button:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--paper)}
-video{border-radius:3px;border:1.5px solid #3a352b}
+.stTextInput input::placeholder{color:#9A1750!important;opacity:.7}
+.stTextInput input:focus{border-color:var(--rose)!important;box-shadow:5px 5px 0 var(--rose)!important}
+.stButton>button{width:100%;background:var(--ink);color:var(--bg);border:2px solid var(--ink);border-radius:2px;
+ font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;letter-spacing:.14em;padding:10px;
+ box-shadow:6px 6px 0 var(--rose);transition:.15s}
+.stButton>button *{color:var(--bg)!important}
+.stButton>button:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--rose);background:var(--plum);border-color:var(--plum)}
+.stButton>button:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--rose)}
+video{border-radius:2px;border:2px solid var(--ink)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 16px}
-.step{border:1px solid var(--line);padding:10px;font-size:11px;letter-spacing:.12em;color:#5d574a;background:var(--panel);transition:.3s}
-.step b{display:block;font-family:'Bricolage Grotesque';font-size:22px;color:#3a352b}
-.step.active{border-color:var(--amber);color:var(--amber);animation:pulse 1s infinite}
-.step.active b{color:var(--amber)}
-.step.done{color:var(--paper);border-color:#4a4437}
-.step.done b{color:#6fcf6f}
-@keyframes pulse{50%{box-shadow:0 0 18px rgba(255,159,28,.35)}}
-.card{background:var(--panel);border:1.5px solid #3a352b;margin-bottom:14px}
-.clap{height:14px;background:repeating-linear-gradient(115deg,var(--paper) 0 18px,#0e0d0b 18px 36px)}
+.step{border:1.5px solid var(--line);padding:10px;font-size:11px;letter-spacing:.12em;color:#8a7b80;background:var(--panel);transition:.3s}
+.step b{display:block;font-family:'Barlow Condensed';font-weight:800;font-size:28px;color:var(--line)}
+.step.active{border-color:var(--rose);color:var(--plum);animation:pulse 1s infinite}
+.step.active b{color:var(--rose)}
+.step.done{color:var(--ink);border-color:var(--ink)}
+.step.done b{color:var(--plum)}
+@keyframes pulse{50%{box-shadow:0 0 18px rgba(238,76,124,.45)}}
+.card{background:var(--panel);border:2px solid var(--ink);margin-bottom:14px}
+.clap{height:14px;background:repeating-linear-gradient(115deg,var(--ink) 0 18px,var(--rose) 18px 36px)}
 .card .in{padding:14px 18px}
-.card h4{margin:0 0 8px;font-size:11px;letter-spacing:.25em;color:var(--amber);font-weight:500}
-.seg{display:flex;gap:12px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);color:var(--paper)}
-.seg i{color:var(--amber);font-style:normal;white-space:nowrap}
-.empty{border:1.5px dashed var(--line);padding:60px 20px;text-align:center;color:#5d574a;letter-spacing:.2em;font-size:12px}
-.stats{display:flex;gap:10px;font-size:12px;color:var(--dim);margin-top:6px}
-.stats span{border:1px solid var(--line);padding:4px 10px}
-.credits{text-align:center;color:#4a4437;font-size:11px;letter-spacing:.25em;margin-top:40px}
+.card h4{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:.22em;color:var(--plum);font-weight:800}
+.seg{display:flex;gap:12px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--blush);color:var(--ink)}
+.seg i{color:var(--plum);font-style:normal;white-space:nowrap}
+.empty{border:2px dashed var(--plum);padding:60px 20px;text-align:center;color:var(--plum);letter-spacing:.2em;font-size:12px;background:rgba(227,175,188,.25)}
+.stats{display:flex;gap:10px;font-size:12px;color:var(--ink);margin-top:6px;flex-wrap:wrap}
+.stats span{border:1.5px solid var(--ink);padding:4px 10px;background:var(--blush)}
+[data-testid="stMetric"]{background:var(--panel);border:2px solid var(--ink);padding:12px 14px;border-left:8px solid var(--rose)}
+[data-testid="stMetricLabel"] *{color:var(--plum)!important;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.12em;font-size:15px}
+[data-testid="stMetricValue"]{color:var(--ink)!important;font-family:'Barlow Condensed',sans-serif;font-weight:800}
+[data-testid="stExpander"] details{border:2px solid var(--ink);background:var(--panel)}
+.credits{text-align:center;color:var(--plum);font-size:11px;letter-spacing:.25em;margin-top:40px}
 </style>
 """
 
 HERO = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=IBM+Plex+Mono:wght@400&display=swap');
-html,body{margin:0;background:transparent;color:#f2ead8;font-family:'IBM Plex Mono',monospace;overflow:hidden}
-.top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.22em;color:#9b927f;padding-top:14px}
-.rec{color:#ff3b30}.rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff3b30;margin-right:8px;animation:b 1s infinite}
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Newsreader:ital,wght@0,400;1,400;1,600&family=IBM+Plex+Mono:wght@400&display=swap');
+html,body{margin:0;background:transparent;color:#5D001E;font-family:'IBM Plex Mono',monospace;overflow:hidden}
+.top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.22em;color:#5D001E;padding-top:12px}
+.rec{color:#9A1750}.rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#EE4C7C;margin-right:8px;animation:b 1s infinite}
 @keyframes b{50%{opacity:.1}}
-h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(56px,10vw,118px);line-height:.95;
- margin:12px 0 4px;letter-spacing:-.035em}
-.m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:6px}
-.m span{display:inline-block}.a .m span{color:#ff9f1c}
-.sub{font-size:14px;color:#9b927f;max-width:640px;line-height:1.6;opacity:0}
-.sub b{color:#f2ead8;font-weight:400}
-.strip{margin-top:18px;background:#171512;border-top:1px solid #2a2722;border-bottom:1px solid #2a2722;position:relative;height:46px;overflow:hidden}
-.h{position:absolute;left:0;width:100%;height:6px;background:repeating-linear-gradient(90deg,#0e0d0b 0 12px,transparent 12px 26px)}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(40px,5.5vw,64px);line-height:1;
+ margin:10px 0 6px;letter-spacing:.01em;color:#5D001E;text-transform:uppercase}
+.m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:4px}
+.m span{display:inline-block}.a .m span{color:#EE4C7C}
+.sub{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(21px,2.5vw,30px);line-height:1.35;color:#5D001E;
+ max-width:900px;opacity:0;margin-top:2px}
+.hl{font-weight:600;padding:0 5px;background:linear-gradient(#E3AFBC,#E3AFBC) no-repeat left 88%/0% 55%}
+.strip{margin-top:16px;background:#5D001E;position:relative;height:46px;overflow:hidden}
+.h{position:absolute;left:0;width:100%;height:6px;background:repeating-linear-gradient(90deg,#E3E2DF 0 12px,transparent 12px 26px)}
 .h.t{top:4px}.h.bt{bottom:4px}
 .track{position:absolute;top:13px;left:0;display:flex;white-space:nowrap}
-.f{width:96px;height:20px;border:1px solid #3a352b;margin-right:10px;font-size:9px;letter-spacing:.2em;color:#6a6355;
+.f{width:96px;height:20px;border:1px solid #9A1750;margin-right:10px;font-size:9px;letter-spacing:.2em;color:#E3AFBC;
  display:flex;align-items:center;justify-content:center;flex:none}
-.f.hot{background:#ff9f1c;color:#0e0d0b;border-color:#ff9f1c}
+.f.hot{background:#EE4C7C;color:#5D001E;border-color:#EE4C7C}
 </style>
 <div class="top"><div class="rec"><i></i>REC &nbsp;<span id="tc">00:00:00:00</span></div>
-<div>OMNISENSE · VIDEO Q&amp;A · MK-I</div></div>
+<div>VIDEO Q&amp;A &middot; MK-I</div></div>
 <h1><span id="l1"></span><span id="l2" class="a"></span></h1>
-<div class="sub">Ask any clip a question. It <b>watches</b>, it <b>listens</b>, and it shows you the <b>exact second</b> the answer lives.</div>
+<div class="sub">Ask any clip a question. It <span class="hl">watches</span>, it <span class="hl">listens</span>, and it shows you the <span class="hl">exact second</span> the answer lives.</div>
 <div class="strip"><div class="h t"></div><div class="h bt"></div><div class="track" id="tr"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
@@ -164,7 +172,8 @@ var tr=document.getElementById('tr');
 for(var k=0;k<2;k++){for(var i=1;i<=30;i++){var d=document.createElement('div');d.className='f'+(i%7==0?' hot':'');
  d.textContent=('0000'+i).slice(-4);tr.appendChild(d);}}
 gsap.from('.m span',{yPercent:115,duration:1,stagger:.06,ease:'power4.out'});
-gsap.to('.sub',{opacity:1,duration:1,delay:.8});
+gsap.to('.sub',{opacity:1,duration:.9,delay:.7});
+gsap.to('.hl',{backgroundSize:'100% 55%',duration:.8,delay:1.3,stagger:.35,ease:'power2.out'});
 gsap.from('.strip',{scaleX:0,transformOrigin:'left',duration:1.1,delay:.3,ease:'power3.out'});
 gsap.to('#tr',{x:-(96+10)*30,duration:40,ease:'none',repeat:-1});
 var t0=Date.now();setInterval(function(){var t=(Date.now()-t0)/1000,p=function(n){return('0'+n).slice(-2)};
@@ -174,17 +183,17 @@ var t0=Date.now();setInterval(function(){var t=(Date.now()-t0)/1000,p=function(n
 
 ANSWER = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=IBM+Plex+Mono&display=swap');
 html,body{margin:0;background:transparent}
-.card{background:#171512;border:1.5px solid #3a352b;color:#f2ead8}
-.clap{height:14px;background:repeating-linear-gradient(115deg,#f2ead8 0 18px,#0e0d0b 18px 36px)}
+.card{background:#EFEEEB;border:2px solid #5D001E;color:#5D001E}
+.clap{height:14px;background:repeating-linear-gradient(115deg,#5D001E 0 18px,#EE4C7C 18px 36px)}
 .in{padding:14px 18px 20px}
-h4{margin:0 0 10px;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.25em;color:#ff9f1c}
-#a{font:800 34px/1.15 'Bricolage Grotesque',sans-serif;min-height:50px}
-.cur{display:inline-block;width:14px;height:30px;background:#ff9f1c;vertical-align:-4px;margin-left:4px;animation:b .8s infinite}
+h4{margin:0 0 10px;font:800 15px 'Barlow Condensed',sans-serif;letter-spacing:.22em;color:#9A1750}
+#a{font:800 40px/1.1 'Barlow Condensed',sans-serif;min-height:50px;color:#5D001E;text-transform:uppercase}
+.cur{display:inline-block;width:14px;height:32px;background:#EE4C7C;vertical-align:-4px;margin-left:4px;animation:b .8s infinite}
 @keyframes b{50%{opacity:0}}
 </style>
-<div class="card" id="c"><div class="clap"></div><div class="in"><h4>ANSWER · TAKE 01</h4>
+<div class="card" id="c"><div class="clap"></div><div class="in"><h4>ANSWER &middot; TAKE 01</h4>
 <div id="a"></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
@@ -197,20 +206,20 @@ gsap.to(o,{n:txt.length,duration:Math.min(2.5,txt.length*0.03),delay:.5,ease:'no
 
 TIMELINE = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
-html,body{margin:0;background:transparent;font-family:'IBM Plex Mono',monospace;color:#f2ead8}
-.card{background:#171512;border:1.5px solid #3a352b;padding:14px 18px 16px}
-h4{margin:0 0 22px;font-weight:500;font-size:11px;letter-spacing:.25em;color:#ff9f1c}
-.track{position:relative;height:34px;background:#0e0d0b;border:1px solid #2a2722}
-.tick{position:absolute;top:0;width:1px;height:10px;background:#4a4437}
-.fill{position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,transparent,rgba(255,159,28,.28))}
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=IBM+Plex+Mono&display=swap');
+html,body{margin:0;background:transparent;font-family:'IBM Plex Mono',monospace;color:#5D001E}
+.card{background:#EFEEEB;border:2px solid #5D001E;padding:14px 18px 16px}
+h4{margin:0 0 22px;font:800 15px 'Barlow Condensed',sans-serif;letter-spacing:.22em;color:#9A1750}
+.track{position:relative;height:34px;background:#E3E2DF;border:1.5px solid #5D001E}
+.tick{position:absolute;top:0;width:1px;height:10px;background:#9A1750}
+.fill{position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,transparent,rgba(238,76,124,.45))}
 .mark{position:absolute;top:-9px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;
- border-top:11px solid #ff3b30;transform:translateX(-7px) scale(0)}
-.pin{position:absolute;top:0;width:2px;height:100%;background:#ff3b30;opacity:0}
-.head{position:absolute;top:-6px;width:2px;height:46px;background:#ff9f1c;box-shadow:0 0 12px #ff9f1c}
-.r{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;color:#9b927f}
-.r b{color:#ff3b30;font-weight:500}#cur{color:#ff9f1c}
-.none{color:#9b927f;font-size:13px;padding:6px 0}
+ border-top:11px solid #9A1750;transform:translateX(-7px) scale(0)}
+.pin{position:absolute;top:0;width:2px;height:100%;background:#9A1750;opacity:0}
+.head{position:absolute;top:-6px;width:3px;height:46px;background:#EE4C7C;box-shadow:0 0 12px #EE4C7C}
+.r{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;color:#5D001E}
+.r b{color:#9A1750;font-weight:500}#cur{color:#EE4C7C}
+.none{color:#9A1750;font-size:13px;padding:6px 0}
 </style>
 <div class="card"><h4>EVIDENCE TIMELINE</h4><div id="w"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -280,8 +289,6 @@ with right:
         steps.markdown(stepper(1), unsafe_allow_html=True)
         transcript, segs = transcribe(asr, dev, ap)
         steps.markdown(stepper(2), unsafe_allow_html=True)
-        
-        steps.markdown(stepper(3), unsafe_allow_html=True)
         if dev == "cpu":
             ans, secs = answer_question(
                 vlm, proc, vpath, build_prompt(q, transcript),
@@ -291,6 +298,7 @@ with right:
             ans, secs = answer_question(
                 vlm, proc, vpath, build_prompt(q, transcript)
             )
+        steps.markdown(stepper(3), unsafe_allow_html=True)
         ts = predict_timestamp(q, segs)
         dur = video_duration(vpath, fallback=(segs[-1]["end"] if segs else 10.0))
         steps.markdown(stepper(4), unsafe_allow_html=True)
@@ -303,7 +311,7 @@ with right:
             rows = "".join(f'<div class="seg"><i>{fmt(s["start"])} → {fmt(s["end"])}</i>'
                            f'<span>{html.escape(s["text"].strip())}</span></div>' for s in segs[:8])
         else:
-            rows = '<div class="seg"><span style="color:#9b927f">(no speech detected)</span></div>'
+            rows = '<div class="seg"><span style="color:#9A1750">(no speech detected)</span></div>'
         st.markdown(f'<div class="card"><div class="clap"></div><div class="in"><h4>AUDIO TRANSCRIPT</h4>{rows}</div></div>',
                     unsafe_allow_html=True)
         st.markdown(f'<div class="stats"><span>VLM {secs}s</span><span>TOTAL {round(time.time()-t_start,1)}s</span>'
@@ -351,7 +359,7 @@ else:
     for c, m in zip(cols, tbl.index):
         gain = tbl.loc[m, "Enhanced"] - tbl.loc[m, "Baseline"]
         c.metric(m, f'{tbl.loc[m, "Enhanced"]:.3f}', f"{gain:+.3f} vs baseline")
-    st.bar_chart(tbl)
+    st.bar_chart(tbl, color=["#9A1750", "#EE4C7C"])
     if ts is not None and len(ts):
         err = (ts["pred_timestamp"] - ts["timestamp_sec"]).abs().mean()
         st.caption(f"Timestamp coverage: {len(ts)}/{len(d)} clips · mean absolute error {err:.2f} s")
